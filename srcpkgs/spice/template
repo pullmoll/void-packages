@@ -3,7 +3,7 @@ pkgname=spice
 version=0.14.3
 revision=3
 build_style=gnu-configure
-configure_args="--disable-tunnel --disable-opengl --enable-smartcard
+configure_args="--disable-tunnel --disable-opengl $(vopt_enable smartcard)
  --with-sasl --disable-static --enable-xinerama --disable-celt051"
 hostmakedepends="pkg-config python"
 makedepends="spice-protocol libjpeg-turbo-devel pixman-devel
@@ -16,6 +16,12 @@ license="GPL-2.0-only"
 homepage="http://www.spice-space.org"
 distfiles="http://www.spice-space.org/download/releases/spice-${version}.tar.bz2"
 checksum=551d4be4a07667cf0543f3c895beb6da8a93ef5a9829f2ae47817be5e616a114
+
+build_options="smartcard"
+desc_option_smartcard="Enable smartcard support"
+if [ -z "$CROSS_BUILD" ]; then
+	build_options_default="smartcard"
+fi
 
 if [ "$XBPS_TARGET_ENDIAN" != "le" ]; then
 	broken="SPICE server only works on little endian architectures"
