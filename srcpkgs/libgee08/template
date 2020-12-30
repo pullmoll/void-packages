@@ -6,8 +6,8 @@ wrksrc="libgee-${version}"
 build_style=gnu-configure
 build_helper="gir"
 configure_args="--disable-static"
-hostmakedepends="pkg-config intltool $(vopt_if vala 'vala')"
-makedepends="libglib-devel"
+hostmakedepends="pkg-config intltool vala"
+makedepends="libglib-devel vala-devel"
 short_desc="GObject collection library (0.8.x API)"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-or-later"
@@ -15,15 +15,13 @@ homepage="http://live.gnome.org/Libgee"
 distfiles="${GNOME_SITE}/libgee/${version%.*}/libgee-${version}.tar.xz"
 checksum=d0b5edefc88cbca5f1709d19fa62aef490922c6577a14ac4e7b085507911a5de
 
-# Package build options
-build_options="gir vala"
-build_options_default="gir vala"
-
 post_install() {
 	if [ "$build_option_gir" -a "$CROSS_BUILD" ]; then
+		test -d ${DESTDIR}/usr/${XBPS_CROSS_TRIPLET}/usr/lib/gir-1.0 && \
 		mv ${DESTDIR}/usr/${XBPS_CROSS_TRIPLET}/usr/share/gir-1.0 \
 		   ${DESTDIR}/usr/share
 
+		test -d ${DESTDIR}/usr/${XBPS_CROSS_TRIPLET}/usr/lib/girepository-1.0 && \
 		mv ${DESTDIR}/usr/${XBPS_CROSS_TRIPLET}/usr/lib/girepository-1.0 \
 		   ${DESTDIR}/usr/lib
 	fi
@@ -36,11 +34,7 @@ libgee08-devel_package() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
 		vmove "usr/lib/*.so"
-		if [ "$build_option_gir" ]; then
-			vmove usr/share/gir-1.0
-		fi
-		if [ "$build_option_vala" ]; then
-			vmove usr/share/vala
-		fi
+		vmove usr/share/gir-1.0
+		vmove usr/share/vala
 	}
 }
