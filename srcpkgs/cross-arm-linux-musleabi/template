@@ -2,7 +2,7 @@
 _triplet=arm-linux-musleabi
 _binutils_version=2.35.1
 _gcc_version=10.2.1_pre1
-_musl_version=1.1.24
+_musl_version=1.2.2
 _linux_version=5.10.4
 _libucontext_version=1.0
 pkgname=cross-${_triplet}
@@ -25,7 +25,7 @@ distfiles="
  https://github.com/kaniini/libucontext/archive/libucontext-${_libucontext_version}.tar.gz"
 checksum="3ced91db9bf01182b7e420eab68039f2083aed0a214c0424e257eae3ddee8607
  772cfd5d30eb9cc5a996fec9ba8cdcb45d37df1c9b5770610103b814b732c590
- 1370c9a812b2cf2a7d92802510cca0058cc37e66a7bedd70051f0a34015022a3
+ 9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd
  904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec
  23714e99a87f6dea82e8a073c526325161dd65462459820b16a6162be91955bb"
 nocross=yes
