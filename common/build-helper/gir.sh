@@ -8,6 +8,11 @@
 # Check if the 'gir' build_option is set or if there is no
 # 'gir' build_option.
 if [ "$build_option_gir" ] || [[ $build_options != *"gir"* ]]; then
+	case "$XBPS_TARGET_MACHINE" in
+		ppcle*) msg_warn "There is no qemu-ppcle-static available ...\n"
+			exit 2
+			;;
+	esac
 	if [[ $hostmakedepends != *"gobject-introspection"* ]]; then
 		# Provide the host tooling, g-ir-scanner, g-ir-compiler
 		# and its wrappers.
