@@ -3,10 +3,10 @@ pkgname=libvirt
 version=7.1.0
 revision=1
 build_style=meson
-configure_args="-Dqemu_user=libvirt -Dqemu_group=libvirt -Drunstatedir=/run"
-hostmakedepends="automake dnsmasq docbook-xsl gettext gettext-devel iptables
- libapparmor-devel libtool libxslt lvm2 parted perl pkg-config python3-docutils
- rpcsvc-proto"
+configure_args="-Dqemu_user=libvirt -Dqemu_group=libvirt -Drunstatedir=/run -Db_lto=false"
+hostmakedepends="automake libtool perl pkg-config lvm2 parted gettext-devel
+ iptables libxslt docbook-xsl dnsmasq libapparmor-devel python3-docutils
+ gettext rpcsvc-proto"
 makedepends="readline-devel libcap-ng-devel attr-devel gnutls-devel
  libsasl-devel libcurl-devel libpcap-devel libxml2-devel libparted-devel
  device-mapper-devel eudev-libudev-devel libblkid-devel libpciaccess-devel
@@ -29,16 +29,6 @@ case "$XBPS_TARGET_MACHINE" in
 	i686*) makedepends+=" libnuma-devel" ;;
 	x86_64*) makedepends+=" libnuma-devel xen-devel" ;;
 	*) ;;
-esac
-
-case "$XBPS_TARGET_MACHINE" in
-	*-musl) ;;
-	*)
-		# LTO apparently causes the linker to confuse the glibc symbol
-		# xdr_int64_t with that provided by libtirpc, causing a crash.
-		# https://gitlab.com/libvirt/libvirt/-/issues/92
-		configure_args+=" -Db_lto=false"
-		;;
 esac
 
 conf_files="
