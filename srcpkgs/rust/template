@@ -86,6 +86,10 @@ case "$XBPS_MACHINE" in
 	*) broken="cargo bootstrap binary unavailable for ${XBPS_MACHINE}";;
 esac
 
+case "$XBPS_TARGET_MACHINE" in
+	ppcle*) broken="error: Error loading target specification: Could not find specification for target 'powerpcle-unknown-linux-gnu'. Use '--print target-list' for a list of built-in targets" ;;
+esac
+
 _bootstrap_dir="stage0-bootstrap"
 
 # as for the rust compiler, just depend on self when crosscompiling...
