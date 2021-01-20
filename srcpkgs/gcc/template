@@ -186,6 +186,7 @@ pre_configure() {
 
 	case "$XBPS_TARGET_MACHINE" in
 		*-musl)
+			patch -p0 -i ${FILESDIR}/fix-_stat-sed-musl.patch
 			patch -p0 -i ${FILESDIR}/libgnarl-musl.patch
 			patch -p0 -i ${FILESDIR}/libssp-musl.patch
 			patch -p0 -i ${FILESDIR}/gccgo-musl.patch

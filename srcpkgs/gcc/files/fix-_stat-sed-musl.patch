@@ -1,0 +1,15 @@
+--- libgo/mksysinfo.sh	2020-11-29 23:07:46.793838127 +0100
++++ libgo/mksysinfo.sh	2020-11-29 23:27:18.520794067 +0100
+@@ -506,9 +506,9 @@
+          -e 's/st_size/Size/' \
+          -e 's/st_blksize/Blksize/' \
+          -e 's/st_blocks/Blocks/' \
+-         -e 's/st_atim/Atim/' \
+-         -e 's/st_mtim/Mtim/' \
+-         -e 's/st_ctim/Ctim/' \
++         -e 's/st_atim/Atim/g' \
++         -e 's/st_mtim/Mtim/g' \
++         -e 's/st_ctim/Ctim/g' \
+          -e 's/\([^a-zA-Z0-9_]\)_timeval\([^a-zA-Z0-9_]\)/\1Timeval\2/g' \
+          -e 's/\([^a-zA-Z0-9_]\)_timespec_t\([^a-zA-Z0-9_]\)/\1Timespec\2/g' \
+          -e 's/\([^a-zA-Z0-9_]\)_st_timespec_t\([^a-zA-Z0-9_]\)/\1StTimespec\2/g' \
