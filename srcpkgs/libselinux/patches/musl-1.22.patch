@@ -1,0 +1,30 @@
+Both glibc-2.32 and musl-1.2.2 have gettid() defined in unistd.h
+
+--- src/procattr.c	2019-11-28 13:46:48.000000000 +0100
++++ src/procattr.c	2021-02-02 14:19:32.419296807 +0100
+@@ -22,25 +22,6 @@
+ static int destructor_key_initialized = 0;
+ static __thread char destructor_initialized;
+ 
+-/* Bionic and glibc >= 2.30 declare gettid() system call wrapper in unistd.h and
+- * has a definition for it */
+-#ifdef __BIONIC__
+-  #define OVERRIDE_GETTID 0
+-#elif !defined(__GLIBC_PREREQ)
+-  #define OVERRIDE_GETTID 1
+-#elif !__GLIBC_PREREQ(2,30)
+-  #define OVERRIDE_GETTID 1
+-#else
+-  #define OVERRIDE_GETTID 0
+-#endif
+-
+-#if OVERRIDE_GETTID
+-static pid_t gettid(void)
+-{
+-	return syscall(__NR_gettid);
+-}
+-#endif
+-
+ static void procattr_thread_destructor(void __attribute__((unused)) *unused)
+ {
+ 	if (prev_current != UNSET)
