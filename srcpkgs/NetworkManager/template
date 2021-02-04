@@ -68,6 +68,11 @@ pre_configure() {
 	fi
 }
 
+post_configure() {
+	# Both glibc 2.32 and musl 1.2.2 have reallocarray()
+	vsed -i -e "/#define HAVE_DECL_REALLOCARRAY/s/0/1/" build/config.h
+}
+
 post_install() {
 	vinstall ${FILESDIR}/${pkgname}.conf 644 etc/${pkgname}
 	vinstall ${FILESDIR}/50-org.freedesktop.NetworkManager.rules 644 \
