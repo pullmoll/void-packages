@@ -10,26 +10,10 @@ homepage="http://www.voidlinux.org"
 
 do_install() {
 	vmkdir usr/share/xbps.d
-	case "$XBPS_TARGET_MACHINE" in
-		aarch64*)
-			echo "repository=https://alpha.de.repo.voidlinux.org/current/aarch64/nonfree" > \
-				${DESTDIR}/usr/share/xbps.d/10-repository-nonfree.conf
-			echo "repository=https://alpha.de.repo.voidlinux.org/current/aarch64/debug" > \
-				${DESTDIR}/usr/share/xbps.d/20-repository-debug.conf
-			;;
-		*-musl)
-			echo "repository=https://alpha.de.repo.voidlinux.org/current/musl/nonfree" > \
-				${DESTDIR}/usr/share/xbps.d/10-repository-nonfree.conf
-			echo "repository=https://alpha.de.repo.voidlinux.org/current/musl/debug" > \
-				${DESTDIR}/usr/share/xbps.d/20-repository-debug.conf
-			;;
-		*)
-			echo "repository=https://alpha.de.repo.voidlinux.org/current/nonfree" > \
-				${DESTDIR}/usr/share/xbps.d/10-repository-nonfree.conf
-			echo "repository=https://alpha.de.repo.voidlinux.org/current/debug" > \
-				${DESTDIR}/usr/share/xbps.d/20-repository-debug.conf
-			;;
-	esac
+	echo "repository=https://repo.voidlinux.de/${XBPS_TARGET_MACHINE}/nonfree" > \
+		${DESTDIR}/usr/share/xbps.d/10-repository-nonfree.conf
+	echo "repository=https://repo.voidlinux.de/${XBPS_TARGET_MACHINE}/debug" > \
+		${DESTDIR}/usr/share/xbps.d/20-repository-debug.conf
 }
 
 void-repo-debug_package() {
