@@ -35,13 +35,9 @@ do_configure() {
 }
 
 post_install() {
-	local repo="https://alpha.de.repo.voidlinux.org/current" suffix=
-	case "$XBPS_TARGET_MACHINE" in
-		aarch64*)     suffix="/aarch64";;
-		*-musl)       suffix="/musl";;
-	esac
+	local repo=
 
-	echo "repository=${repo}${suffix}" > \
+	echo "repository=https://repo.voidlinux.de/${XBPS_TARGET_MACHINE}" > \
 		${DESTDIR}/usr/share/xbps.d/00-repository-main.conf
 	echo "architecture=${XBPS_TARGET_MACHINE}" > \
 		${DESTDIR}/usr/share/xbps.d/xbps-arch.conf
