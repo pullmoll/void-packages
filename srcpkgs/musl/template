@@ -30,6 +30,11 @@ do_install() {
 	rm ${DESTDIR}/lib
 	# provide ldd
 	vmkdir usr/bin
+	if [ "$XBPS_TARGET_MACHINE" = "i686-musl" ]; then
+		# The default file is ld-musl-i386.so
+		ln -s /usr/lib${XBPS_TARGET_WORDSIZE}/libc.so \
+			${DESTDIR}/usr/lib${XBPS_TARGET_WORDSIZE}/ld-musl-i686.so.1
+	fi
 	ln -s ../lib${XBPS_TARGET_WORDSIZE}/libc.so ${DESTDIR}/usr/bin/ldd
 	# additional utils from Alpine/NetBSD
 	vbin iconv
