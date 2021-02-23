@@ -584,6 +584,10 @@ do_install() {
 		for f in ${DESTDIR}/${sysroot}/usr/lib/ld-musl-*.so.*; do
 			ln -sf libc.so ${f}
 		done
+		# Create additional symlink ld-musl-i686.so.1 for i686-musl
+		if [ "${cross_triplet}" = "i686-linux-musl" ]; then
+			ln -sf libc.so ${DESTDIR}/${sysroot}/usr/lib/ld-musl-i686.so.1
+		fi
 	else
 		# Install glibc
 		cd ${wrksrc}/glibc_build
